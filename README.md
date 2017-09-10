@@ -1,0 +1,1 @@
+Entidad que provee los servicio de compra/venta de vehiculos.
