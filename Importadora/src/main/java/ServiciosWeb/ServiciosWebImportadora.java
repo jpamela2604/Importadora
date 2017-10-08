@@ -5,6 +5,9 @@
  */
 package ServiciosWeb;
 
+import com.mysql.jdbc.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -24,14 +27,29 @@ public class ServiciosWebImportadora {
         return "Hello " + txt + " !";
     }*/
     
-    @WebMethod(operationName = "validar_Sesion")
+     @WebMethod(operationName = "validar_Sesion")
     public String validar_Sesion(@WebParam(name = "username") String username,@WebParam(name = "password") String password) {
-        Boolean respuesta = false;
+        Boolean respuesta = true;
+        String salidajson = "" ;
+        try{
+            
+            Connection con = null;            
+            String sURL = "jdbc:mysql://sql10.freemysqlhosting.net:3306/sql10197972";
+            con = (Connection) DriverManager.getConnection(sURL, "sql10197972", "whpmERFKN9");
+            salidajson = "{\"respuesta\" : \"" ;            
+        }
+        catch(SQLException e)
+        {            
+            salidajson=e+"\n";
+        }
+            
         if (username=="sa"&&password=="1234")
         {
-            respuesta=true;
+             salidajson = "{\"respuesta\" : \"" ;
+            //respuesta=true;
+            
         }
-        String salidajson = "{\"respuesta\" : \"" + respuesta + "\"}";
+        salidajson=salidajson+ respuesta + "\"}";
         return salidajson;
     }
     
